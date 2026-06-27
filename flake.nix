@@ -43,9 +43,26 @@
           runtimeInputs = [ pkgs.treefmt ] ++ formatters;
           text = ''exec treefmt "$@"'';
         };
+
+        # The filter itself. callCabal2nix reads the .cabal file; Haskell deps
+        # come from haskellPackages. The `extra-libraries: tree-sitter` arg must
+        # be pinned to the C library (pkgs.tree-sitter), otherwise it resolves to
+        # the unrelated `tree-sitter` *Haskell* binding in haskellPackages. The
+        # bundled grammars are compiled in from c-sources.
+        package = pkgs.haskellPackages.callCabal2nix "pandoc-tree-sitter-filter" ./. {
+          tree-sitter = pkgs.tree-sitter;
+        };
       in
       {
         formatter = treefmt;
+
+        packages.default = package;
+        packages.pandoc-tree-sitter-filter = package;
+
+        apps.default = {
+          type = "app";
+          program = "${package}/bin/pandoc-tree-sitter-filter";
+        };
 
         devShells.default = pkgs.mkShell {
           packages = [

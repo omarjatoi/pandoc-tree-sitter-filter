@@ -13,8 +13,11 @@ The filter is a self-contained binary, with each grammar's parser and `highlight
 
 ## Usage
 
+Build the filter with `nix build` and point pandoc at it:
+
 ```sh
-pandoc --filter pandoc-tree-sitter-filter -s -c theme.css input.md -o output.html
+nix build
+pandoc --filter ./result/bin/pandoc-tree-sitter-filter -s -c theme.css input.md -o output.html
 ```
 
 ## Development

@@ -1,0 +1,83 @@
+/*
+ * GitHub-light theme for pandoc-tree-sitter-filter.
+ *
+ * Mimics GitHub's web UI code highlighting in light mode (Primer palette).
+ *
+ * The filter emits <pre class="tree-sitter"><code>...</code></pre> with inner
+ * <span class="ts-<capture>"> elements, where <capture> is a tree-sitter
+ * highlight capture name with dots turned into dashes (e.g. the capture
+ * @function.special becomes the class "ts-function-special").
+ *
+ * Include it when converting, e.g.:
+ *   pandoc --filter pandoc-tree-sitter-filter -s -c theme.css in.md -o out.html
+ */
+
+pre.tree-sitter {
+  background: #f6f8fa;
+  color: #1f2328;
+  padding: 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+  line-height: 1.45;
+  font-size: 85%;
+}
+
+pre.tree-sitter code {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+}
+
+/* Comments — gray, not italic (matching GitHub) */
+.ts-comment,
+.ts-comment-documentation { color: #6e7781; }
+
+/* Keywords / storage — red */
+.ts-keyword { color: #cf222e; }
+
+/* Strings — navy */
+.ts-string,
+.ts-string-special,
+.ts-string-special-key { color: #0a3069; }
+
+/* Escapes inside strings — blue */
+.ts-escape,
+.ts-string-escape { color: #0550ae; }
+
+/* Numbers & constants — blue */
+.ts-number,
+.ts-constant,
+.ts-constant-builtin { color: #0550ae; }
+
+/* Functions & constructors — purple */
+.ts-function,
+.ts-function-builtin,
+.ts-function-macro,
+.ts-function-method,
+.ts-function-special,
+.ts-constructor { color: #8250df; }
+
+/* Types — orange/brown */
+.ts-type,
+.ts-type-builtin { color: #953800; }
+
+/* Language built-in variables (this, self, ...) — blue */
+.ts-variable-builtin { color: #0550ae; }
+
+/* HTML/JSX attributes — blue */
+.ts-attribute { color: #0550ae; }
+
+/*
+ * Plain identifiers, members/properties, parameters, operators, punctuation and
+ * labels render in the default foreground colour, just like GitHub. Declared
+ * explicitly so they win over any inherited link/element styling.
+ */
+.ts-variable,
+.ts-variable-parameter,
+.ts-property,
+.ts-operator,
+.ts-label,
+.ts-delimiter,
+.ts-punctuation-delimiter,
+.ts-punctuation-bracket,
+.ts-punctuation-special,
+.ts-embedded { color: #1f2328; }

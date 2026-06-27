@@ -1,0 +1,23 @@
+# treefmt configuration (https://github.com/numtide/treefmt).
+# Run `treefmt` in the dev shell to format the tree.
+#
+# Vendored grammars are excluded — they are generated/upstream code we don't own.
+excludes = [
+  "grammars/**",
+  "dist-newstyle/**",
+  ".direnv/**",
+]
+
+[formatter.nix]
+command = "nixfmt"
+includes = ["*.nix"]
+
+[formatter.haskell]
+command = "ormolu"
+options = ["--mode", "inplace"]
+includes = ["*.hs"]
+
+[formatter.c]
+command = "clang-format"
+options = ["-i"]
+includes = ["*.c", "*.h"]

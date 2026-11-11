@@ -2,7 +2,7 @@
   description = "Pandoc filter that highlights code blocks with tree-sitter";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -28,7 +28,7 @@
         ]);
 
         formatters = [
-          pkgs.nixfmt-rfc-style
+          pkgs.nixfmt
           pkgs.ormolu
           pkgs.clang-tools # clang-format
         ];
